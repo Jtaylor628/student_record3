@@ -5,14 +5,21 @@ using namespace std;
 #include <vector>
 struct student_records
 {
-	string student_name;
 	double get_average();
+	char calc_letter_grade();
+	void output_info();
+	//void score_output();
+
+
+	string student_name;
 	int quiz1;
 	int quiz2;
 	int exam1;
 	int exam2;
-	int final;
+	
 	string letter;
+
+	
 
 };
 int main() {
@@ -86,18 +93,14 @@ int main() {
 	};
 	
 	
-	cout << students[0].student_name;
+	
+
+
 
 	for (int i = 0; i < 6; i++)
 	{
-		cout << "Student name: " << students[i].student_name << endl;
-		cout << "Quiz 1: " << students[i].quiz1 << endl;
-		cout << "Quiz 2: " << students[i].quiz2 << endl;
-		cout << "Exam 1: " << students[i].exam1 << endl;
-		cout << "Exam 2: " << students[i].exam2  << endl;
-		cout << "Final grade: " << students[i].get_average() << "\n" << endl;
-	};
-	
+		students[i].output_info();
+	}
 
 	/*string a;
 	in_stream >> a;
@@ -112,11 +115,41 @@ int main() {
 
 }
 
-double student_records::get_average()
+ double student_records::get_average()
 {
 	double final_examGrade = exam2 * 0.5;
 	double midterm_examGrade = exam1 * 0.25;
-	double two_quizGrade = (quiz1 + quiz2) * 0.25;
-	double final_grade = final_examGrade + midterm_examGrade + two_quizGrade;
-	return final_grade;
+	double quiz1_percent = quiz1;
+	double quiz2_percent = quiz2;
+	double two_quizGrade = ((quiz1 + quiz2) / 20.0) * 100;
+	double result;
+	result = final_examGrade + midterm_examGrade + 0.25 * two_quizGrade;
+	return result;
+	
+}
+
+char student_records::calc_letter_grade()
+{
+	if (get_average() > 90)
+		return 'A';
+	else if (get_average() >= 80)
+		return 'B';
+	else if (get_average() >= 70)
+		return 'C';
+	else if (get_average() >= 60)
+		return 'D';
+	else
+		return 'F';
+	
+}
+
+void student_records::output_info()
+{
+	cout << "Student name: " << student_name << endl;
+	cout << "Quiz 1: " << quiz1 << endl;
+	cout << "Quiz 2: " << quiz2 << endl;
+	cout << "Exam 1: " << exam1 << endl;
+	cout << "Exam 2: " << exam2 << endl;
+	cout << "Final grade: " << get_average() << endl;
+	cout << "Letter grade: " << calc_letter_grade() << "\n" << endl;
 }
